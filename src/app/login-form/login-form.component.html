@@ -1,0 +1,23 @@
+<h2>Login</h2>
+<form [formGroup]="loginForm" (ngSubmit)="fakeSubmit()">
+
+    <span class="m-input">
+        <input type="email" id="email" placeholder="" formControlName="email"> 
+        <label for="email">Email</label>
+    </span>
+    
+    <span class="m-input">
+        <input type="password" id="password" placeholder="" formControlName="password"> 
+        <label for="password">Password</label>
+    </span>
+    
+    <span class="m-input">
+        <input type="checkbox" id="remember-me" formControlName="rememberMe"> 
+        <label for="remember-me">Remember-Me</label>
+    </span>
+
+    <a href="#">Forgot Password?</a>
+
+    <button type="submit" [disabled]="loginForm.invalid">Log In</button>
+
+</form>

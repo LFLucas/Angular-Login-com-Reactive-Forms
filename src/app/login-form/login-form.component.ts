@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,8 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './login-form.component.css'
 })
 export class LoginFormComponent {
-  constructor(private formBuilder: FormBuilder,
-              private renderer: Renderer2){}
+  constructor(private formBuilder: FormBuilder){}
 
   public loginForm: FormGroup = this.formBuilder.group({
     email:      ["", [Validators.required, Validators.email]],

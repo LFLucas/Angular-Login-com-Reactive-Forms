@@ -20,6 +20,7 @@ Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 
 Para ver as mudanças na pagina o login correto para se usar é:
 > email: teste@gmail.com
+
 > password: 123456789
 
 Reactive forms são formulários construídos na classe do componente e conectado aos elementos html através de diretivas e atributos, permitindo com que tenhamos mais flexibilidade nas validações, comparações, etc.

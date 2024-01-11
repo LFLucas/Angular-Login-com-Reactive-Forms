@@ -149,6 +149,7 @@ export class LoginFormComponent {
 
 * Atribua seus campos aos inputs no html com a diretiva formControlName
 
+*login-form.component.html*
 ```html
 <h2>Login</h2>
 <form [formGroup]="loginForm" (ngSubmit)="fakeSubmit()">

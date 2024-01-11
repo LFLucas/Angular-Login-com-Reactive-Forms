@@ -1,27 +1,27 @@
 # ReactiveForms
 
-Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versao 17.0.8.
+Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 17.0.8.
 
 ## Rodando o Projeto
 
 * Clone o projeto 
 > git clone [link do projeto]
 
-* Instale as dependencias
+* Instale as dependências
 > npm install
 
-* inicie o servidor de desenvolvimento
+* Inicie o servidor de desenvolvimento
 > ng serve
 
 
 ## O Projeto
-(Ese projeto foi construido usando NgModules, componentes standalone serao abordados posteriormente)
+(Este projeto foi construído usando NgModule's, componentes standalone serão abordados posteriormente)
 
-Reactive forms sao formularios construidos na classe do componente e conectado aos elementos html atravez de diretivas e atriubutos permitindo com que tenhamos mais flexibilidade nas validaçoes comparaçoes etc.
+Reactive forms são formulários construídos na classe do componente e conectado aos elementos html através de diretivas e atributos, permitindo com que tenhamos mais flexibilidade nas validações, comparações, etc.
 
-* declare ou importe o componente que vai conter o formulario no modulo principal da aplicaçao
+* declare ou importe o componente que vai conter o formulário no módulo principal da aplicação
 
-* importe o modulo ReactFormsModule no modulo onde o componente esta declarado ou importado
+* importe o modulo ReactFormsModule no módulo onde o componente está declarado ou importado
 
 *app.module.ts*
 ```typescript
@@ -30,67 +30,69 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
-// Importação do Modulo no arquivo
+// Importação do Módulo no arquivo
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 
-// Importação da diretiva  no arquivo
+// Importação da diretiva no arquivo
 import { TrackStatusDirective } from './directives/track-status.directive';
 
 @NgModule({
 
-    // declaration: declara os modulos componentes diretivas etc que exitem dentro
+    // declarations: declara os módulos, componentes, diretivas, etc, que exitem dentro
     //              deste mesmo modulo
   declarations: [
     AppComponent,
-    LoginFormComponent, // declaraçao do componente que receberá o formulario
-    TrackStatusDirective,  // Diretiva que muda a classe dos elementos de acordo com o status
-
+    LoginFormComponent, // Declaração do componente que receberá o formulário
+    TrackStatusDirective,  // Diretiva que muda a classe dos elementos conforme o status do formulário
   ],
-  // imports: importa componentes diretivas modulos 
-  //          etc externos para que usemos seus recursos
+
+  // imports: importa componentes diretivas módulos 
+  //          etc externos para usarmos seus recursos
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule   // Importação do ReactiveFormsModule dentro do modulo
+    ReactiveFormsModule   // Importação do ReactiveFormsModule dentro do módulo
   ],
 
   // providers: adiciona Providers ao modulo
   //            Providers serao abordados posteriormente
   providers: [],
 
-  // bootstrap: array de componentes que serao renderizados 
+  // bootstrap: array de componentes que serão renderizados 
   //            pelo angular diretamente no DOM 
-  //            geralmente somente o AppModule usa essa propriedade
-  //            pois ela carrega o componente de bootstrap
-  //            que e um componente que carrega todos os outros
-  bootstrap: [AppComponent]
+  //            geralmente somente o AppModule usa essa propriedade,
+  //            pois ela carrega o componente de Bootstrap
+  //            que é um componente que carrega todos os outros
+  bootstrap: [
+    AppComponent // Componente raíz da aplicação
+  ]
 })
-export class AppModule { }
+export class AppModule { } // Modulo raíz da aplicação
 
 ```
 
-* declare o componente que contem o formulario no arquivo html do componente root para que ele seja exibido
+* Declare o componente que contem o formulário no arquivo html do componente root para que ele seja exibido
 
 *app.module.ts*
 ```html
 <rf-login-form rfTrackStatus/>  
 ```
-
-* crie o formulario na classe do componente 
+> A diretiva rfTrackStatus modifica as classes do elemento conforme o status do formulário
+* Crie o formulário na classe do componente 
 
 *login-form.component.ts*
 ```typescript
 import { Component, 
-         EventEmitter, // importaçao do EventEmitter 
-         Output,       // importaçao do decorator @Output() para a emissao do evento
+         EventEmitter, // Importação do EventEmitter 
+         Output,       // Importação do decorator @Output() para a emissão do evento
 } from '@angular/core';
 
-import { FormBuilder,   // importaçao do service FormBuilder
-         FormGroup,     // importaçao do FormGroup
-         Validators     // importaçao dos Validators
+import { FormBuilder,   // Importação do service FormBuilder
+         FormGroup,     // Importação do FormGroup
+         Validators     // Importação dos Validators
 } from '@angular/forms';
 
 @Component({
@@ -100,46 +102,38 @@ import { FormBuilder,   // importaçao do service FormBuilder
 })
 export class LoginFormComponent {
 
-  // injeçao do serviço formBuilder
-  constructor(private formBuilder: FormBuilder){}
+  // Injeção do serviço FormBuilder
+  // Injeção do serviço LoginService (Services serão abordados posteriormente)
+  constructor(private formBuilder: FormBuilder,
+              private loginService: LoginService){}
 
 
-  // criaçao do formulario
+  // Criação do formulário
   public loginForm: FormGroup = this.formBuilder.group({
     email:      ["", [Validators.required, Validators.email]],
     password:   ["", [Validators.required, Validators.minLength(8)]],
     rememberMe: [false]
   })
 
-  // instanciaçao do evento que emitira o valor da classe a ser adicionada no elemento
-  // usada para fazer o formulario mudar de cor de acordo com o status
+  // Instanciação do evento que emitira o valor da classe a ser adicionada no elemento
+  // usada para fazer o formulário mudar de cor conforme o status
   @Output() private statusEvent: EventEmitter<string> = new EventEmitter<string>()
   
-  // funçao que realiza um login falso somente para
+  // Função que realiza um login falso somente para
   // testar o conceito de Reactive Forms
-  fakeSubmit(){
-    //exibe os valores dos inputs email password e rememberMe
-    console.log(this.loginForm.controls['email'].value)
-    console.log(this.loginForm.controls['password'].value)
-    console.log(this.loginForm.controls['rememberMe'].value)
+ fakeSubmit(){
+    // O serviço loginService retorna true ou false dependendo
+    // do sucesso ou fracasso do login
+    let loggedIn = this.loginService.fakeLogin({ 
+      email: this.loginForm.controls["email"].value,
+      password: this.loginForm.controls["password"].value 
+    })
+    
+    // Se logar com sucesso o statusEvent emite o valor "success"
+    if(loggedIn) this.statusEvent.emit("success") 
 
-    // credenciais falsas para teste
-    const email = "teste@gmail.com"
-    const password = "123456789"
-
-    // se o email e a password forem validos
-    // exibe mensagem no console e emite o valor "success"
-    if( this.loginForm.controls['email'].value == email &&
-        this.loginForm.controls['password'].value == password ){
-      console.log("you are logged in")
-      this.statusEvent.emit("success")
-    }
-    // se o email e a password forem invalidos
-    // exibe mensagem no console e emite o valor "error"
-    else{
-      console.log("you are not logged in")
-      this.statusEvent.emit("error")
-    }
+    // Senão e statusEvent emite o valor "error"
+    else this.statusEvent.emit("error")
   }
 }
 
@@ -176,12 +170,11 @@ export class LoginFormComponent {
 </form>
 ```
 
-Para criar um formulario usando o serviço FormBuilder, inserimos dentro do metodo
-this.formBuilder.group um objeto contendo os campos do formulario que deseja. Esse objeto deve conter chaves que farao referencia a string passada para a diretiva formControlName no elemento input dentro do arquivo html (a string passada para a diretiva deve ser exatamente igual a chave daquele determinado campo)
+Para criar um formulário usando o serviço FormBuilder, inserimos dentro do método
+this.formBuilder.group() um objeto contendo os campos do formulário que deseja. Esse objeto deve conter chaves que farão referencia a string passada para a diretiva formControlName no elemento input dentro do arquivo html (a string passada para a diretiva deve ser exatamente igual à chave daquele determinado campo)
 
-Cada chave pode receber um valor em string number ou boolean mas tambem pode receber um array contendo
-um valor que como dito anteriormente, tambem pode ser string number ou boolean acompanhado de um validator ou um array de validators assincronos (validators serao abordados posteriormente) 
+Cada chave pode receber um valor em string, number ou boolean, mas também pode receber um array contendo um valor que, como dito anteriormente, também pode ser string, number ou boolean acompanhado de um validator, ou um array de validators assíncronos (validators serão abordados posteriormente) 
 
-O evento (ngSubmit) na tag forms faz com que toda vez que o botao for clicado, se ele estiver habilitado, ele executara a funçao fakeLogin()
+O evento (ngSubmit) na tag forms faz com que toda vez que o botão for clicado, se ele estiver habilitado, ele executara a função fakeLogin()
 
-A execuçao dessa funçao dispara um evento que sera ouvido pela diretiva rfTrackStatus. Esse evento envia o status do componente para a diretiva que faz com que a classe do elemento mude de acordo com o seu status fazendo com que a cor dos elementos mude para vermelho quando o login esta invalido e verde para quando esta correto
+A execução dessa função dispara um evento que será ouvido pela diretiva rfTrackStatus. Esse evento envia o status do componente para a diretiva que faz com que a classe do elemento mude conforme o seu status fazendo com que a cor dos elementos mude para vermelho quando o login esta invalido e verde quando está correto

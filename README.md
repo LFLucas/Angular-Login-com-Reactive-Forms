@@ -5,7 +5,7 @@ Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 ## Rodando o Projeto
 
 * Clone o projeto 
-> git clone [link do projeto]
+> git clone https://github.com/LFLucas/Angular-Login-com-Reactive-Forms
 
 * Instale as dependências
 > npm install

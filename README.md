@@ -82,7 +82,7 @@ export class AppModule { } // Modulo raíz da aplicação
 
 * Declare o componente que contem o formulário no arquivo html do componente root para que ele seja exibido
 
-*app.module.ts*
+*app.component.html*
 ```html
 <rf-login-form rfTrackStatus/>  
 ```

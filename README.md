@@ -2,7 +2,7 @@
 
 Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 17.0.8.
 
-## Rodando o Projeto
+## Rodando o Projeto localmente
 
 * Clone o projeto 
 > git clone https://github.com/LFLucas/Angular-Login-com-Reactive-Forms
@@ -17,6 +17,10 @@ Esse projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli
 [Reactive Forms](https://lflucas.github.io/Angular-Login-com-Reactive-Forms/)
 ## O Projeto
 (Este projeto foi construído usando NgModule's, componentes standalone serão abordados posteriormente)
+
+Para ver as mudanças na pagina o login correto para se usar é:
+> email: teste@gmail.com
+> password: 123456789
 
 Reactive forms são formulários construídos na classe do componente e conectado aos elementos html através de diretivas e atributos, permitindo com que tenhamos mais flexibilidade nas validações, comparações, etc.
 
